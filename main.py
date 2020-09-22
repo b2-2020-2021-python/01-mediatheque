@@ -1,7 +1,7 @@
 from document import Document
-from remplissageCatalogue import creerCatalogue
+from catalogue import Catalogue
 
-catalogue = creerCatalogue()
+catalogue = Catalogue.getInstance()
 
 while True:
 
@@ -14,14 +14,14 @@ while True:
     if choix == "cat":
         # Afficher le catalogue
         index = 1
-        for doc in catalogue:
+        for doc in catalogue.getDocument():
             print(str(index) + ": " + doc.getTitre())
             index += 1
 
     elif choix == "show":
         # Afficher un document
         docNum = int(input("Quel numéro de document ? "))
-        print(catalogue[docNum-1].consulter())
+        print(catalogue.getDocument()[docNum-1].consulter())
 
     elif choix == "quit":
         # Quitter
