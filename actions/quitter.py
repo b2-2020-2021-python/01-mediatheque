@@ -1,4 +1,4 @@
-from action import Action
+from action import Action, ActionManager
 from etatApp import EtatApp
 
 class QuitterAction(Action):
@@ -10,4 +10,6 @@ class QuitterAction(Action):
 
     def help(self):
         return """Quitte l'application, ne prend aucun paramètre"""
-    
+
+
+ActionManager.getInstance().registerCommand("quit",QuitterAction())

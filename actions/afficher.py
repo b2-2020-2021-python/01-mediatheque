@@ -1,4 +1,4 @@
-from action import Action
+from action import Action, ActionManager
 from catalogue import Catalogue
 
 class AfficherAction(Action):
@@ -20,5 +20,5 @@ Paramètres : un entier qui correspond au numéro du document à afficher
 Attention, ne pas taper autre chose qu'un entier sinon ça plante !
 """
 
-
+ActionManager.getInstance().registerCommand("show",AfficherAction(Catalogue.getInstance()))
 

@@ -1,4 +1,4 @@
-from action import Action
+from action import Action,ActionManager
 
 class HelpAction(Action):
 
@@ -14,3 +14,5 @@ class HelpAction(Action):
 
     def help(self):
         return """Affiche l'aide d'une commande, passer la commande en paramètre"""
+
+ActionManager.getInstance().registerCommand("help",HelpAction(ActionManager.getInstance()))

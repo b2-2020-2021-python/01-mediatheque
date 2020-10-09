@@ -1,3 +1,7 @@
+import os
+from importlib import import_module
+
+
 class Action:
 
     def execute(self, param):
@@ -15,11 +19,26 @@ class ActionManager:
     """ Rôle : gérer l'association mot clef/instance, récupérer la bonne instance en fonction de la commande demandée,
     et gérer les splits de l'entrée utilisateur pour récupérer commande et paramètres"""
 
+    __instance = None
+
+    @staticmethod
+    def getInstance():
+        if __class__.__instance == None:  # Lazy loading
+            __class__.__instance = __class__()
+        return __class__.__instance
+
     def __init__(self):
         self.actions = {}
 
     def registerCommand(self, cmd, instanceAction):
         self.actions[cmd] = instanceAction
+
+    def loadActionPlugins(self):
+        """ Charge dynamiquement tous les modules présents dans le dossier actions"""
+        main_dir = os.path.dirname(__file__)
+        for file in os.listdir(main_dir + "/actions"):
+            if file.endswith(".py"):
+                import_module("actions." + file[:-3])
 
     def executerEntreeUtilisateur(self, entreeUtilisateur):
         try:

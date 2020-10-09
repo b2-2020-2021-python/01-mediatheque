@@ -1,21 +1,12 @@
 from catalogue import Catalogue
-from actions.catalogue import CatalogueAction
-from actions.afficher import AfficherAction
-from actions.quitter import QuitterAction
-from actions.help import HelpAction
 from etatApp import EtatApp
 from action import ActionManager
+import os
 
 catalogue = Catalogue.getInstance()
 
-# La liste des actions avec leur mot clef
-actionManager = ActionManager()
-actionManager.registerCommand("cat",CatalogueAction(catalogue))
-actionManager.registerCommand("show",AfficherAction(catalogue))
-actionManager.registerCommand(("quit",QuitterAction()))
-actionManager.registerCommand("help",HelpAction(actionManager))
-
-
+actionManager = ActionManager.getInstance()
+actionManager.loadActionPlugins()
 
 while EtatApp.getInstance().getEtat():
 

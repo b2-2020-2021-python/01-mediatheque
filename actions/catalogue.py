@@ -1,4 +1,4 @@
-from action import Action
+from action import Action, ActionManager
 from catalogue import Catalogue
 
 class CatalogueAction(Action):
@@ -17,3 +17,5 @@ class CatalogueAction(Action):
 
     def help(self):
         return "Consulte le catalogue, ne prend aucun paramètre"
+
+ActionManager.getInstance().registerCommand("cat",CatalogueAction(Catalogue.getInstance() ))
