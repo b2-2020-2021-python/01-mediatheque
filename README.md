@@ -122,3 +122,20 @@ Ce qu'il faut retenir pour la lecture de fichiers textes ([lien vers la doc](htt
 Lors des opérations de lecture, le descripteur de fichier maintien un cursor sur la position actuelle :
 plusieurs appels à `readline()` avancent dans la lecture du fichier, et l'appel à `read()` renvoie tout le reste
 à partir de la position de lecture.
+
+### Mise en place du pattern Factory
+
+Le code de création des Documents est supprimé du constructeur du catalogue. Les documents sont chargés directement à partir des fichiers présents dans le dossier *documents*.
+
+A chaque type de document correspond une factory (définie dans le dossier *factories*) qui a pour rôle de créer une instance d'un sous-type document à partir d'un fichier.
+
+C'est en fonction de l'extension du fichier (*.image.txt, *.text.txt) que l'on identifie la factory à utiliser. Cette selection est opéré dans la classe `DocumentFactoryPrincipale`
+qui maintient un dictionnaire qui fait le lien entre le nom du type présent dans l'extension du fichier et la classe Factory correspondante.
+
+Cette classe a deux rôles :
+
+- elle est le point d'entrée du pattern : on appelle `DocumentFactoryPrincipale.creerDocument(nomDuFichier)` pour faire créer l'instance de Document correspondant au fichier.
+- elle permet à chaque sous-factory de s'enregistrer sur un type d'extention avec la méthode `DocumentFactoryPrincipale.registerFactory(type, factory)`
+
+Comme pour le pattern Action, chaque type de Factory s'enregistre elle même lors du chargement du module. La méthode `DocumentFactoryPrincipale.loadFactoryPlugins()` s'occupe
+de charger tous les modules présents dans le dossier *factories*.
